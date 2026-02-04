@@ -1,8 +1,13 @@
-config/*
+# local runtime dir
+config/
+mail/
+secrets/
+
+# keep only examples tracked
 !config/mbsyncrc.example
-mail/**
-!mail/.gitkeep
-!mail/gmail/.gitkeep
-secrets/*
 !secrets/gmail_user.txt.example
 !secrets/gmail_app_password.txt.example
+
+# env files
+.env
+.env.*
