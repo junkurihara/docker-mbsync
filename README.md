@@ -18,7 +18,13 @@ Container for backing up Gmail/Google Workspace
    cp config/mbsyncrc.example config/mbsyncrc
 ```
 
-3. Start
+3. Create mail directory
+
+```bash
+   mkdir -p mail/gmail
+```
+
+4. Start
 
 ```bash
    docker compose up -d
