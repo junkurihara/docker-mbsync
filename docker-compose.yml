@@ -1,0 +1,24 @@
+services:
+  mbsync:
+    image: jqtype/mbsync-gmail:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mbsync
+    environment:
+      - TZ=Asia/Tokyo
+      - INTERVAL_SEC=21600   # 6h
+      - MBSYNC_CONFIG=/config/mbsyncrc
+    volumes:
+      - ./config:/config:ro
+      - ./mail:/mail
+    secrets:
+      - gmail_user
+      - gmail_app_password
+    restart: unless-stopped
+
+secrets:
+  gmail_user:
+    file: ./secrets/gmail_user.txt
+  gmail_app_password:
+    file: ./secrets/gmail_app_password.txt

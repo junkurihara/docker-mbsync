@@ -1,0 +1,44 @@
+# /config/mbsyncrc
+
+SyncState *
+
+IMAPAccount gmail
+Host imap.gmail.com
+UserCmd "cat /run/secrets/gmail_user"
+PassCmd "cat /run/secrets/gmail_app_password"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+AuthMechs LOGIN
+Timeout 120
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore local
+Path /mail/gmail/
+Inbox /mail/gmail/INBOX
+SubFolders Verbatim
+
+# 全フォルダ（=ラベル）を対象にしつつ、迷惑メール/ゴミ箱/チャット系は除外（英語・日本語どちらでも効くように両方書く）
+# Gmail -> ローカルのみ
+# ローカル側にだけ作る（Gmail側はいじらない）
+# Gmail側で消えたものはローカルからも消す（ローカル操作はGmailに影響しない）
+Channel gmail-all
+Far :gmail-remote:
+Near :local:
+Patterns *
+Patterns !"[Gmail]/Spam"
+Patterns !"[Gmail]/迷惑メール"
+Patterns !"[Gmail]/Junk"
+Patterns !"[Gmail]/Trash"
+Patterns !"[Gmail]/ゴミ箱"
+Patterns !"[Gmail]/Bin"
+Patterns !"[Gmail]/Chats"
+Patterns !"[Gmail]/チャット"
+Sync Pull
+Create Near
+Remove Near
+Expunge Near
+
+Group gmail
+Channel gmail-all
