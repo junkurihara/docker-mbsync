@@ -16,6 +16,10 @@ services:
       - gmail_user
       - gmail_app_password
     restart: unless-stopped
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 secrets:
   gmail_user:
